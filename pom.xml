@@ -105,6 +105,12 @@
                 <version>${jaxb-api}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
+                <version>8.2.0</version>
+            </dependency>
+
             <!-- poi -->
             <dependency>
                 <groupId>org.apache.poi</groupId>

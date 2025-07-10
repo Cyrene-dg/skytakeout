@@ -5,7 +5,6 @@
     <select id="pageQuery" resultType="com.sky.entity.Employee">
         select * from employee
         <where>
-            <!-- 仅当有条件时，<where> 才会生成 WHERE 关键字，并自动去掉多余的 and/or -->
             <if test="name != null and name != ''">
                 and name like concat('%', #{name}, '%')
             </if>

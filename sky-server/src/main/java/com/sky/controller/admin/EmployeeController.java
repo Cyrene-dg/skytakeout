@@ -115,11 +115,27 @@ public class EmployeeController {
      * @return
      */
     @GetMapping("/{id}")
+    //查询类型的操作需要指定泛型
     public Result<Employee> getById(@PathVariable Long id){
         log.info("id是:{}",id);
         Employee employee = employeeService.getById(id);
         return Result.success(employee);
     }
+
+    /**
+     * 编辑员工信息
+     * @param employeeDTO
+     * @return
+     */
+    @PutMapping
+    //put写成了post导致调用的是新增员工方法
+    public Result update(@RequestBody EmployeeDTO employeeDTO){
+        log.info("编辑员工信息:{}", employeeDTO);
+        employeeService.update(employeeDTO);
+        return Result.success();
+    }
+
+
 
 
 }

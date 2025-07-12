@@ -1,8 +1,15 @@
+# application-dev.yml
 sky:
-  datasource:
+  datasource:  # 数据库配置（独立层级）
     driver-class-name: com.mysql.cj.jdbc.Driver
     host: localhost
     port: 3306
     database: sky_take_out
     username: root
-    password: 1234
+    password: 1234  # 注意：数据库密码也建议用环境变量，避免硬编码
+
+  alioss:  # OSS配置（与datasource同级，而非嵌套）
+    access-key-id: ${ALIOSS_ACCESS_KEY_ID:}  # 读取环境变量
+    access-key-secret: ${ALIOSS_ACCESS_KEY_SECRET:}
+    endpoint: ${ALIOSS_ENDPOINT:}
+    bucket-name: ${ALIOSS_BUCKET_NAME:}

@@ -105,11 +105,6 @@
                 <version>${jaxb-api}</version>
             </dependency>
 
-            <dependency>
-                <groupId>com.mysql</groupId>
-                <artifactId>mysql-connector-j</artifactId>
-                <version>8.2.0</version>
-            </dependency>
 
             <!-- poi -->
             <dependency>
@@ -128,6 +123,7 @@
                 <artifactId>wechatpay-apache-httpclient</artifactId>
                 <version>0.4.8</version>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 </project>

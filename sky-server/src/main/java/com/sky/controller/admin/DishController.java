@@ -45,6 +45,11 @@ public class DishController {
         return Result.success(list);
     }
 
+    /**
+     * 菜品分页查询
+     * @param dishPageQueryDTO
+     * @return
+     */
     @GetMapping("/page")
     public Result<PageResult> page(DishPageQueryDTO dishPageQueryDTO) {
         log.info("分页查询：{}", dishPageQueryDTO);

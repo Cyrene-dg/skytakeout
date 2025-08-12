@@ -17,4 +17,11 @@ public interface SetmealService {
      * @return
      */
     PageResult pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
+
+    /**
+     * 起售停售套餐
+     * @param status
+     * @param id
+     */
+    void startOrStop(Integer status, Long id);
 }

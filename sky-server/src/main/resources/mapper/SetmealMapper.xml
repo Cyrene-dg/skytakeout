@@ -30,4 +30,42 @@
         </where>
         order by s.create_time desc
     </select>
+    <update id="update" parameterType="Setmeal">
+        update setmeal
+        <set>
+            <!-- 分类 ID，非空则更新 -->
+            <if test="categoryId != null">
+                category_id = #{categoryId},
+            </if>
+            <!-- 套餐名称，非空则更新 -->
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <!-- 套餐价格，非空则更新 -->
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <!-- 状态（0 禁用、1 启用 等），非空则更新 -->
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <!-- 描述信息，非空则更新 -->
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <!-- 图片路径，非空则更新 -->
+            <if test="image != null">
+                image = #{image},
+            </if>
+            <!-- 更新时间，一般可结合框架自动填充（如 MyBatis Plus 或手动赋值） -->
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <!-- 更新人 ID，可结合登录态获取后赋值 -->
+            <if test="updateUser != null">
+                update_user = #{updateUser},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
 </mapper>

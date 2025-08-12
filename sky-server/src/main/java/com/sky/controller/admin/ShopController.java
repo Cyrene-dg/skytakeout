@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 public class ShopController {
     @Autowired
     private RedisTemplate redisTemplate;
+
+
     /**
      * 设置店铺的营业状态
      */
@@ -23,6 +25,7 @@ public class ShopController {
         return Result.success();
     }
 
+
     /**
      * 获取店铺营业状态
      * @return
@@ -32,7 +35,7 @@ public class ShopController {
         Integer status = (Integer) redisTemplate.opsForValue().get("SHOP_STATUS");
         log.info("获取到的店铺状态为：{}",status==1? "营业中":"打烊中");
         return Result.success(status);
-
+ 
     }
 
 }

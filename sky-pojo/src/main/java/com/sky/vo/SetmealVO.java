@@ -40,6 +40,7 @@ public class SetmealVO implements Serializable {
     //更新时间
     private LocalDateTime updateTime;
 
+    //以下是比setmeal多出的部分
     //分类名称
     private String categoryName;
 

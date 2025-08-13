@@ -3,6 +3,7 @@ package com.sky.service;
 import com.sky.dto.SetmealDTO;
 import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.result.PageResult;
+import com.sky.vo.SetmealVO;
 
 public interface SetmealService {
     /**
@@ -24,4 +25,12 @@ public interface SetmealService {
      * @param id
      */
     void startOrStop(Integer status, Long id);
+
+    /**
+     * 通过id查询套餐
+     *
+     * @param id
+     * @return
+     */
+    SetmealVO getByIdWithDish(Long id);
 }

@@ -51,6 +51,7 @@ public class SetmealController {
      */
     @PostMapping("/status/{status}")
     public Result startOrStop(@PathVariable Integer status,Long id) {
+        log.info("启用停用");
         setmealService.startOrStop(status, id);
         return Result.success();
     }
@@ -63,7 +64,20 @@ public class SetmealController {
      */
     @GetMapping("/{id}")
     public Result<SetmealVO> getById(@PathVariable Long id) {
+        log.info("根据id查询，id：{}",id);
         SetmealVO setmealVO = setmealService.getByIdWithDish(id);
         return Result.success(setmealVO);
+    }
+
+    /**
+     * 修改套餐
+     * @param setmealDTO
+     * @return
+     */
+    @PutMapping
+    public Result update(@RequestBody SetmealDTO setmealDTO) {
+        log.info("修改套餐，setmealDTO:{}", setmealDTO);
+        setmealService.update(setmealDTO);
+        return Result.success();
     }
 }

@@ -30,6 +30,7 @@ public class SetmealDTO implements Serializable {
     //图片
     private String image;
 
+    //比setmeal多出的部分
     //套餐菜品关系
     private List<SetmealDish> setmealDishes = new ArrayList<>();
 

@@ -48,4 +48,10 @@ public interface SetmealMapper {
      * @return
      */
     Setmeal getById(Long id);
+
+    /**
+     * 删除套餐
+     * @param setmealId
+     */
+    void deleteById(Long setmealId);
 }

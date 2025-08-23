@@ -43,6 +43,12 @@
             <if test="name != null and name != ''">
                 and name like concat('%', #{name}, '%')
             </if>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
             <!-- 可添加其他条件 -->
         </where>
         order by create_time desc

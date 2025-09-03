@@ -54,6 +54,12 @@ public interface OrderService {
      * @param id
      */
     void repetition(Long id);
+    /**
+     * 派送订单
+     *
+     * @param id
+     */
+    void delivery(Long id);
 }
 
 

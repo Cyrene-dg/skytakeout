@@ -1,15 +1,19 @@
 package com.sky.controller.admin;
 
+import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.OrderService;
+import com.sky.dto.OrdersPageQueryDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController("adminOrderController")
 @RequestMapping("/admin/order")
+@Slf4j
+/**
+ * 订单管理
+ */
 public class OrderController {
     @Autowired
     private OrderService orderService;
@@ -23,4 +27,15 @@ public class OrderController {
         orderService.delivery(id);
         return Result.success();
     }
-}
+    /**
+     * 订单搜索
+     *
+     * @param ordersPageQueryDTO
+     * @return
+     */
+    @GetMapping("/conditionSearch")
+    public Result<PageResult> conditionSearch(OrdersPageQueryDTO ordersPageQueryDTO) {
+        PageResult pageResult = orderService.conditionSearch(ordersPageQueryDTO);
+        return Result.success(pageResult);
+    }
+    }

@@ -6,6 +6,7 @@ import com.sky.service.OrderService;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.dto.OrdersRejectionDTO;
 import com.sky.dto.OrdersConfirmDTO;
+import com.sky.dto.OrdersCancelDTO;
 import com.sky.vo.OrderStatisticsVO;
 import com.sky.vo.OrderVO;
 import lombok.extern.slf4j.Slf4j;
@@ -81,6 +82,16 @@ public class OrderController {
     @PutMapping("/rejection")
     public Result rejection(@RequestBody OrdersRejectionDTO ordersRejectionDTO) throws Exception {
         orderService.rejection(ordersRejectionDTO);
+        return Result.success();
+    }
+    /**
+     * 取消订单
+     *
+     * @return
+     */
+    @PutMapping("/cancel")
+    public Result cancel(@RequestBody OrdersCancelDTO ordersCancelDTO) throws Exception {
+        orderService.cancel(ordersCancelDTO);
         return Result.success();
     }
     }

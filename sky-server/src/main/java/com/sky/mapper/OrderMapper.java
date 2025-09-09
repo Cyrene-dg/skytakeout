@@ -62,4 +62,13 @@ public interface OrderMapper {
             "checkout_time = #{checkOutTime} " +
             "WHERE id = #{id}")
     void updateStatus(Integer orderStatus, Integer orderPaidStatus, LocalDateTime checkOutTime, Long id);
+
+    /**
+     * 根据下单状态和下单时间查询订单
+     * @param status
+     * @param orderTime
+     * @return
+     */
+    @Select("select * from orders where status=#{status} and order_time < #{orderTime}")
+    List<Orders> getByStatusAndOrderTimeLT(Integer status,LocalDateTime orderTime);
 }

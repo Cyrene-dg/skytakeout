@@ -6,7 +6,9 @@ import com.sky.entity.Orders;
 import com.sky.entity.ShoppingCart;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper
@@ -46,4 +48,18 @@ public interface OrderMapper {
      */
     @Select("select count(id) from orders where status = #{status}")
     Integer countStatus(Integer status);
+
+    /**
+     * 更新订单状态、支付状态和结账时间
+     * @param orderStatus 订单状态
+     * @param orderPaidStatus 支付状态
+     * @param checkOutTime 结账时间
+     * @param id 订单ID
+     */
+    @Update("UPDATE orders " +
+            "SET status = #{orderStatus}, " +
+            "pay_status = #{orderPaidStatus}, " +
+            "checkout_time = #{checkOutTime} " +
+            "WHERE id = #{id}")
+    void updateStatus(Integer orderStatus, Integer orderPaidStatus, LocalDateTime checkOutTime, Long id);
 }

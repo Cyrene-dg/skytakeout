@@ -22,6 +22,7 @@ import com.sky.vo.OrderPaymentVO;
 import com.sky.vo.OrderStatisticsVO;
 import com.sky.vo.OrderSubmitVO;
 import com.sky.vo.OrderVO;
+import com.sky.websocket.WebSocketServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -60,6 +61,8 @@ public class OrderServiceImpl implements OrderService {
     private UserMapper userMapper;
 
     private Orders orders;
+    @Autowired
+    private WebSocketServer webSocketServer;
 
     /**
      * 用户下单
@@ -161,6 +164,11 @@ public class OrderServiceImpl implements OrderService {
         // 根据订单号查询订单
         Orders ordersDB = orderMapper.getByNumber(outTradeNo);
 
+        //检查是否为空
+        if (ordersDB == null) {
+            log.error("订单号{}不存在，无法处理支付成功逻辑", outTradeNo);
+            return; // 避免后续空指针
+        }
         // 根据订单id更新订单的状态、支付方式、支付状态、结账时间
         Orders orders = Orders.builder()
                 .id(ordersDB.getId())
@@ -170,6 +178,14 @@ public class OrderServiceImpl implements OrderService {
                 .build();
 
         orderMapper.update(orders);
+        //websocket向浏览器推送消息
+        Map map = new HashMap();
+        map.put("type", 1);
+        map.put("orderId",ordersDB.getId());
+        map.put("content","订单号"+outTradeNo);
+
+        webSocketServer.sendToAllClient(JSON.toJSONString(map));
+
     }
 
     /**
@@ -491,6 +507,24 @@ public class OrderServiceImpl implements OrderService {
 
         orderMapper.update(orders);
     }
+
+    @Override
+    public void reminder(Long id) {
+        //根据id查询订单
+        Orders ordersDB = orderMapper.getById(id);
+        //校验订单是否存在
+        if (ordersDB == null) {
+            throw new OrderBusinessException(MessageConstant.ORDER_STATUS_ERROR);
+        }
+        Map map = new HashMap();
+        map.put("type", 2);
+        map.put("orderId", id);
+        map.put("content","订单号"+ordersDB.getNumber());
+
+        webSocketServer.sendToAllClient(JSON.toJSONString(map));
+
+    }
+
     /**
      * 检查客户的收货地址是否超出配送范围
      * @param address
